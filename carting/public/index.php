@@ -9,16 +9,22 @@
 </head>
 <body>
     <?php require("components/navbar.php") ?>
+    <?php require_once("../app/init.php") ?>
     <!-- Items -->
 
 
     <!--Items-->
-        <?php include("model/article.class.php"); ?>
+
+
+
+
+    <!-- <?php include("model/article.class.php"); ?>
     <?php
       $article = new article("Test", 250, 50);
       echo($article->getId());
       $article2 = new article("Test2", 250, 50);
       echo($article2->getId());
-    ?>
+    ?> -->
+
 </body>
 </html>
