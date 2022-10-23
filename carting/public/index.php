@@ -10,6 +10,7 @@
 <body>
     <?php require("components/navbar.php") ?>
     <?php require_once("../app/init.php") ?>
+    <?php $init = new Core(); ?>
     <!-- Items -->
 
 
