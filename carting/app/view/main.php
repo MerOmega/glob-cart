@@ -1,3 +1,9 @@
 <?php
+ require(RUTA_APP."/view/components/header.php");
+?>
 
-echo "Hey this is main menu";
+
+
+<?php
+require(RUTA_APP."/view/components/footer.php");
+?>

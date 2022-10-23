@@ -1,14 +1,19 @@
 <?php
 
-class pages{
+class pages extends Controller {
 
 
     public function __construct(){
     }
 
-    public function index($param){
-        echo("aa y $param");
+    public function index(){
+        $this->view("main");
 
+    }
+
+    public function foo()
+    {
+        echo "bar";
     }
 
     public function art($params){

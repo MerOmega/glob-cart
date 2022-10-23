@@ -10,9 +10,9 @@
 
 
     public function __construct(){
-        $url=$this->getUrl();
+        $url=$this->getUrl()??[];
         //busca si el controlador existe, sino se queda con pages que es el default inicial
-        if(file_exists("../app/controller/".$url[0].".php")){
+        if(isset($url[0]) && file_exists("../app/controller/".$url[0].".php")){
             $this->defaultController=$url[0];
             unset($url[0]);
         }
