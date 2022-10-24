@@ -7,7 +7,7 @@ class pages extends Controller {
     }
 
     public function index(){
-        $this->view("main");
+        $this->view("main",$_SESSION["list"]->getColecction());
 
     }
 

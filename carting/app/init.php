@@ -9,4 +9,13 @@ require_once("config/configuration.php");
  spl_autoload_register(function ($classname){
      require_once("libs/".$classname.".php");
  });
+ 
+ if(!session_id()) {
+     session_start();
+ }
+ if(!isset($_SESSION["list"])){
+     $obj=Emulator::getInstance();
+     $_SESSION["list"]=serialize($obj);
+ }
+
 ?>

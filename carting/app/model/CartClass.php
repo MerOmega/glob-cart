@@ -1,5 +1,5 @@
 <?php
-class cart{
+class CartClass{
 
     private array $conjArticle;
     private float $totalValue;
