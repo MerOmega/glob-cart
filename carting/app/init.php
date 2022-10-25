@@ -7,7 +7,7 @@ require_once("config/configuration.php");
 
 //https://www.php.net/manual/es/function.spl-autoload-register.php
  spl_autoload_register(function ($classname){
-     require_once("libs/".$classname.".php");
+    require_once("libs/".$classname.".php"); 
  });
  
  if(!session_id()) {
@@ -15,7 +15,7 @@ require_once("config/configuration.php");
  }
  if(!isset($_SESSION["list"])){
      $obj=Emulator::getInstance();
-     $_SESSION["list"]=serialize($obj);
+     $_SESSION["list"]=$obj;
  }
 
 ?>
