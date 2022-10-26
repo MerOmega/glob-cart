@@ -1,12 +1,20 @@
 <?php
 class CartClass{
 
-    private array $conjArticle;
+    private static $instance;
+    private array  $conjArticle=[];
     private float $totalValue;
     private int $totalItems;
 
-    public function __construct(){
+    private final function __construct(){
 
+    }
+
+    public static function getInstance(){
+        if(!isset(self::$instance)){
+            self::$instance= new static();
+        }
+        return self::$instance;
     }
 
     public function getConjArticle(): array
@@ -14,9 +22,16 @@ class CartClass{
         return $this->conjArticle;
     }
 
-    public function setConjArticle(array $conjArticle): void
+    public function setConjArticle(int $articleId,int $amount): void
     {
-        $this->conjArticle = $conjArticle;
+        $array = $this->conjArticle;
+        if(!array_key_exists($articleId,$array)){
+            $this->conjArticle[$articleId]=$amount;
+            echo("foo");
+        }else{
+            $this->conjArticle[$articleId]+=$amount;
+            echo("bar");
+        }
     }
 
 
@@ -30,7 +45,7 @@ class CartClass{
         return $this->totalItems;
     }
 
-
+    
 
     
 

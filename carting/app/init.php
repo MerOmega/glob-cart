@@ -1,13 +1,14 @@
 
 <?php
 require_once("config/configuration.php");
-// require_once("libs/Base.php");
-// require_once("libs/Controller.php");
-// require_once("libs/Core.php");
-
 //https://www.php.net/manual/es/function.spl-autoload-register.php
+
  spl_autoload_register(function ($classname){
-    require_once("libs/".$classname.".php"); 
+    if(file_exists(RUTA_APP."/libs/".$classname.".php")){
+        require_once("libs/".$classname.".php");
+    }elseif(file_exists(RUTA_APP."/model/".$classname.".php")){
+        require_once("model/".$classname.".php");
+    }    
  });
  
  if(!session_id()) {
@@ -16,6 +17,11 @@ require_once("config/configuration.php");
  if(!isset($_SESSION["list"])){
      $obj=Emulator::getInstance();
      $_SESSION["list"]=$obj;
+     
  }
+ if(!isset($_COOKIE["cart"])){
+    $_COOKIE["cart"]=CartClass::getInstance();
+ }
+
 
 ?>

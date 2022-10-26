@@ -1,5 +1,5 @@
 <?php
-require("../app/model/ArticleClass.php");
+
 final class Emulator{
 
     private static $instance;
