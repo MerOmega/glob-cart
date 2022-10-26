@@ -19,10 +19,20 @@ class cart extends Controller{
             $_SESSION["cart"]->setConjArticle($params,$postAmount,$_SESSION["list"]);
         }
         header("Location:".INDEXED_RUTE);
+        die();
+    }
+
+    public function deleteItem($params){
+        $postAmount=$_POST["amount"]??null;
+        if(isset($postAmount)){
+            
+        }
+        $this->view("cart");
     }
 
     public function removeCart(){
         unset($_SESSION["cart"]);
         header("Location:".INDEXED_RUTE);
+        die();
     }
 }

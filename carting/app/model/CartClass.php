@@ -25,10 +25,9 @@ class CartClass{
             $total=0;
             foreach($lista as $key=>$value){
                 $idItem = $value->getId();
-                if(array_key_exists($idItem,$lista)){
+                if(array_key_exists($idItem,$this->conjArticle)){
                     $total+=($this->conjArticle[$value->getId()]*$value->getPrice());
                 } 
-                echo $total;
             }
             return $total;
     }

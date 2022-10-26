@@ -17,7 +17,7 @@
                         <form action="cart/addItem/<?php echo $key->getId();?>" method="post" autocomplete="off">
                         <!-- Envia como POST al controlador la cantidad que quiere guardar en el carro -->
                         <div class="text-center my-4">
-                            <label for="amount">Cantidad:</label> <input type="text" name="amount" >
+                            <label for="amount">Cantidad:</label> <input type="number" name="amount" required value="1">
                             <button type="submit" class="btn btn-warning"> Buy now! </button>
                         </div>
                         </form>  
