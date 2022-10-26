@@ -15,13 +15,11 @@ require_once("config/configuration.php");
      session_start();
  }
  if(!isset($_SESSION["list"])){
-     $obj=Emulator::getInstance();
-     $_SESSION["list"]=$obj;
+     $_SESSION["list"]=Emulator::getInstance();
      
  }
- if(!isset($_COOKIE["cart"])){
-    $_COOKIE["cart"]=CartClass::getInstance();
+ if(!isset($_SESSION["cart"])){
+   $_SESSION["cart"]=CartClass::getInstance();
  }
-
 
 ?>

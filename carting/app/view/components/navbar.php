@@ -7,7 +7,10 @@
             <a class="nav-link" aria-current="page" href="home">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="cart">Carrito</a>
+            <a class="nav-link" href="cart">Carrito <?php echo($_SESSION["cart"]->getTotalItems()) ?></a>
+          </li>
+          <li>
+            <p class="nav-link" >A pagar:$ <?php echo($_SESSION["cart"]->getTotalValue()) ?></p>
           </li>
         </ul>
       </div>

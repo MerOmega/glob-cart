@@ -16,9 +16,13 @@ class cart extends Controller{
     public function addItem($params){
         $postAmount=$_POST["amount"]??null;
         if(isset($postAmount)){
-            $_COOKIE["cart"]->setConjArticle($params,$postAmount);
+            $_SESSION["cart"]->setConjArticle($params,$postAmount,$_SESSION["list"]);
         }
-        var_dump($_COOKIE["cart"]);
-        $this->view("cart", $_COOKIE["cart"]->getConjArticle());
+        header("Location:".INDEXED_RUTE);
+    }
+
+    public function removeCart(){
+        unset($_SESSION["cart"]);
+        header("Location:".INDEXED_RUTE);
     }
 }

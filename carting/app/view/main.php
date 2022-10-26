@@ -10,7 +10,7 @@
                     <div class="card-body" id="item-<?php echo $key->getId(); ?>">
                         <div class="clearfix mb-3">
                             <span class="float-start badge rounded-pill bg-primary"><?php echo $key->getName(); ?></span>
-                            <span class="float-end price-hp"><?php echo $key->getPrice();?></span>
+                            <span class="float-end price-hp">PRECIO: $<?php echo $key->getPrice();?></span>
                         </div>
                         <h5 class="card-title">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam quidem eaque ut eveniet aut quis rerum. Asperiores accusamus harum ducimus velit odit ut. Saepe, iste optio laudantium sed aliquam sequi.</h5>
                         <p>Solo <?php echo($key->getStock()) ?> en stock!</p>
