@@ -54,8 +54,14 @@ class CartClass{
         return $this->totalItems;
     }
 
-    
+    //emulo que consulte la bd
+    public function allItemsDB(){
+        return $_SESSION["cart"];
+    }
 
+    public function deleteItem($params){
+
+    }
     
 
 }

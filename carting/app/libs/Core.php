@@ -31,7 +31,6 @@
         $this->params=$url?array_values($url):[];
         //callback con param
         call_user_func_array([$this->defaultController,$this->defaultMethod],$this->params);
-
     }
 
 
