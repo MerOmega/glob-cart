@@ -27,8 +27,14 @@ final class Emulator{
         }
     }
 
-    public function updateContent($array){
-             
+    public function updateContent($array):void{
+            foreach($array as $key=>$value){
+                foreach($this->colecction as $keyId=>$valueObj){
+                    if($valueObj->getId() == $key){
+                        $valueObj->setStock($valueObj->getStock() - $value);
+                    }
+                }
+            }
     }
 
     public function getColecction(): array

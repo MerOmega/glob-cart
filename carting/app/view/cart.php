@@ -76,9 +76,11 @@ require(RUTA_APP."/view/components/header.php");
         <div class="d-flex justify-content-end">
           <a href="cart/removeCart" type="buttop" class="btn btn-danger btn-lg me-2">Delete all in Shopping Cart</a>
           <a href="<?php echo INDEXED_RUTE ?>" type="button" class="btn btn-light btn-lg me-2">Continue shopping</a>
+          <?php if(count($cartElements-> getConjArticle())!=0){ ?>
           <form action="recipt/index" method="post">
-            <button type="submit" class="btn btn-primary btn-lg">Buy!</button>
+            <button type="submit" class="btn btn-primary btn-lg">Buy! </button>
           </form>
+          <?php }?>       
         </div>
 
       </div>
