@@ -16,7 +16,7 @@ class cart extends Controller{
     public function addItem($params){
         $postAmount=$_POST["amount"]??null;
         if(isset($postAmount)){
-            $_SESSION["cart"]->setConjArticle($params,$postAmount,$_SESSION["list"]);
+            $_SESSION["cart"]->setConjArticle($params,$postAmount);
         }
 
         // $this->view("main",$_SESSION["list"]->getColecction());
@@ -25,11 +25,8 @@ class cart extends Controller{
     }
 
     public function deleteItem($params){
-        $postAmount=$_POST["amount"]??null;
-        if(isset($postAmount)){
-            $var_dump($postAmount);
-        }
-        $this->view("cart");
+        $this->cart->deleteItemDB($params);
+        $this->index();
     }
 
     public function removeCart(){

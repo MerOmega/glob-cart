@@ -32,17 +32,22 @@ class CartClass{
             return $total;
     }
 
-    public function setConjArticle(int $articleId,int $amount,$lista): void
+    public function setConjArticle(int $articleId,int $amount): void
     {
+        
         if(!array_key_exists($articleId,$this->conjArticle)){
             $this->conjArticle[$articleId]=$amount;
         }else{
             $this->conjArticle[$articleId]+=$amount;
         }
+        $this->updateValues();
+    }
+
+    public function updateValues(){
+        $lista=$_SESSION["list"];
         $this->totalItems=array_sum($this->conjArticle);
         $this->totalValue=$this->calculate($lista->getColecction());
     }
-
 
     public function getTotalValue(): float
     {
@@ -54,13 +59,15 @@ class CartClass{
         return $this->totalItems;
     }
 
+
     //emulo que consulte la bd
     public function allItemsDB(){
         return $_SESSION["cart"];
     }
 
-    public function deleteItem($params){
-
+    public function deleteItemDB($params){
+        unset($_SESSION["cart"]->conjArticle[$params]);
+        $_SESSION["cart"]->updateValues();
     }
     
 

@@ -27,6 +27,9 @@ final class Emulator{
         }
     }
 
+    public function updateContent($array){
+             
+    }
 
     public function getColecction(): array
     {
