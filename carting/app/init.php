@@ -14,10 +14,7 @@ require_once("config/configuration.php");
  if(!session_id()) {
      session_start();
  }
- if(!isset($_SESSION["list"])){
-     $_SESSION["list"]=Emulator::getInstance();
-     
- }
+
  if(!isset($_SESSION["cart"])){
    $_SESSION["cart"]=CartClass::getInstance();
  }

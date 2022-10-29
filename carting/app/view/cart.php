@@ -23,7 +23,7 @@ require(RUTA_APP."/view/components/header.php");
                       <div class="col-md-2 d-flex justify-content-center">
                         <div>
                           <p class="small text-muted mb-4 pb-2">Name</p>
-                          <p class="lead fw-normal mb-0"><?php echo($listElement[$key-1]->getName()); ?></p>
+                          <p class="lead fw-normal mb-0"><?php echo($listElement[$key-1]->name); ?></p>
                         </div>
                       </div>
                       
@@ -36,13 +36,13 @@ require(RUTA_APP."/view/components/header.php");
                       <div class="col-md-2 d-flex justify-content-center">
                         <div>
                           <p class="small text-muted mb-4 pb-2">Price</p>
-                          <p class="lead fw-normal mb-0"><?php echo($listElement[$key-1]->getPrice());?></p>
+                          <p class="lead fw-normal mb-0"><?php echo($listElement[$key-1]->price);?></p>
                         </div>
                       </div>
                       <div class="col-md-2 d-flex justify-content-center">
                         <div>
                           <p class="small text-muted mb-4 pb-2">Total</p>
-                          <p class="lead fw-normal mb-0"><?php echo($listElement[$key-1]->getPrice()*$value); ?></p>
+                          <p class="lead fw-normal mb-0"><?php echo($listElement[$key-1]->price*$value); ?></p>
                         </div>
                       </div>
                     <div class="col-md-2 d-flex justify-content-center">

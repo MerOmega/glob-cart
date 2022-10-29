@@ -4,10 +4,12 @@ class pages extends Controller {
 
 
     public function __construct(){
+        $this->articleModel = $this->dinamicModel("ArticleClassDB");
     }
 
     public function index(){
-        $this->view("main",$_SESSION["list"]->getColecction());
+        $lista=$this->articleModel->getArticles();
+        $this->view("main",$lista);
 
     }
     

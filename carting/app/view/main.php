@@ -4,17 +4,19 @@
 <main> <div class="container-fluid bg-trasparent my-4 p-3" style="position: relative;">
         <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
  <?php
+
         foreach ($data as $key){
+
             ?>
             <div class="col"> <div class="card h-100 shadow-sm">
-                    <div class="card-body" id="item-<?php echo $key->getId(); ?>">
+                    <div class="card-body" id="item-<?php echo $key->idarticles; ?>">
                         <div class="clearfix mb-3">
-                            <span class="float-start badge rounded-pill bg-primary"><?php echo $key->getName(); ?></span>
-                            <span class="float-end price-hp">PRECIO: $<?php echo $key->getPrice();?></span>
+                            <span class="float-start badge rounded-pill bg-primary"><?php echo $key->name; ?></span>
+                            <span class="float-end price-hp">PRECIO: $<?php echo $key->price;?></span>
                         </div>
                         <h5 class="card-title">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam quidem eaque ut eveniet aut quis rerum. Asperiores accusamus harum ducimus velit odit ut. Saepe, iste optio laudantium sed aliquam sequi.</h5>
-                        <p>Solo <?php echo($key->getStock()) ?> en stock!</p>
-                        <form action="cart/addItem/<?php echo $key->getId();?>" method="post" autocomplete="off">
+                        <p>Solo <?php echo($key->stock) ?> en stock!</p>
+                        <form action="cart/addItem/<?php echo $key->idarticles;?>" method="post" autocomplete="off">
                         <!-- Envia como POST al controlador la cantidad que quiere guardar en el carro -->
                         <div class="text-center my-4">
                             <label for="amount">Cantidad:</label> <input type="number" name="amount" required value="1">

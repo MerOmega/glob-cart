@@ -5,6 +5,7 @@ class CartClass{
     private array $conjArticle=[];
     private float $totalValue=0;
     private int $totalItems=0;
+    private object $db;
 
     private final function __construct(){
     }
@@ -23,16 +24,16 @@ class CartClass{
 
     private function calculate($lista):float{
             $total=0;
-            foreach($lista as $key=>$value){
-                $idItem = $value->getId();
+            foreach($lista as $key=>$value){ 
+                $idItem = $value->idarticles;
                 if(array_key_exists($idItem,$this->conjArticle)){
-                    $total+=($this->conjArticle[$value->getId()]*$value->getPrice());
+                    $total+=($this->conjArticle[$idItem]*$value->price);
                 } 
             }
             return $total;
     }
 
-    public function setConjArticle(int $articleId,int $amount): void
+    public function setConjArticle(int $articleId,int $amount,array $list): void
     {
         
         if(!array_key_exists($articleId,$this->conjArticle)){
@@ -40,14 +41,26 @@ class CartClass{
         }else{
             $this->conjArticle[$articleId]+=$amount;
         }
-        $this->updateValues();
+        $this->updateValues($list);
     }
 
-    public function updateValues(){
-        $lista=$_SESSION["list"];
+    public function updateValues(array $list){
         $this->totalItems=array_sum($this->conjArticle);
-        $this->totalValue=$this->calculate($lista->getColecction());
+        $this->totalValue=$this->calculate($list);
     }
+
+    
+    //emulo que consulte la bd
+    public function allItemsDB(){
+        return $_SESSION["cart"];
+    }
+
+    public function deleteItemDB($params,$list){
+        unset($_SESSION["cart"]->conjArticle[$params]);
+        $_SESSION["cart"]->updateValues($list);
+    }
+    
+
 
     public function getTotalValue(): float
     {
@@ -59,17 +72,6 @@ class CartClass{
         return $this->totalItems;
     }
 
-
-    //emulo que consulte la bd
-    public function allItemsDB(){
-        return $_SESSION["cart"];
-    }
-
-    public function deleteItemDB($params){
-        unset($_SESSION["cart"]->conjArticle[$params]);
-        $_SESSION["cart"]->updateValues();
-    }
-    
 
 }
 
