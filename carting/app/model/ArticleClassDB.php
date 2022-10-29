@@ -30,8 +30,10 @@ class ArticleClassDB{
 
     public function setStock($newStock,$idItem)
     {
-        $actual=$this->db->query("SELECT stock FROM articles WHERE idarticles=$idItem");
-        $this->db->query("UPDATE articles SET stock=".($actual-$newStock)."WHERE idarticles='$idItem'");
+        $object=$this->getSingleArticle($idItem);
+        var_dump($object);
+        $this->db->query("UPDATE articles SET stock=".($object->stock-$newStock)." WHERE idarticles=$idItem");
+        $this->db->execute();
     }
 
     public function existsId(int $idArticle){

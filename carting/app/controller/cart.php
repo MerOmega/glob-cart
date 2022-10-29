@@ -15,16 +15,16 @@ class cart extends Controller{
     }
 
     public function addItem($params){
-        $postAmount=$_POST["amount"]??null;
+        $postAmount= filter_var($_POST["amount"],FILTER_SANITIZE_NUMBER_INT)??null;
         if(isset($postAmount)){
-            $_SESSION["cart"]->setConjArticle($params,$postAmount,$this->article->getArticles());
+            $_SESSION["cart"]->setConjArticle(filter_var($params,FILTER_SANITIZE_NUMBER_INT),$postAmount,$this->article->getArticles());
         }
         header("Location:".INDEXED_RUTE);
         die();
     }
 
     public function deleteItem($params){
-        $this->cart->deleteItemDB($params,[$this->article->getArticles($params)]);
+        $this->cart->deleteItemDB($params,$this->article->getArticles($params));
         $this->index();
     }
 

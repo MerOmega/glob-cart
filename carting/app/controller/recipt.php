@@ -9,7 +9,7 @@ class recipt extends Controller{
     public function index(){
         $cart=$_SESSION["cart"]->getConjArticle();
         $this->reciptModel->createTicket($cart);
-        $this->view("buy",[ReciptClass::getBuyOrder(),$this->reciptModel->getDate(),$this->reciptModel->getFinalprice()]);
+        $this->view("buy",[1,1,1]);
         // header("Location:".INDEXED_RUTE);
         // die();
     }

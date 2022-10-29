@@ -2,18 +2,18 @@
 
 class ReciptClass{
 
-    private static int $buyOrder=0;
-    private array $items=[];
-    private string $date;
     private float $finalprice=0;
+    private string $date;
+    private ArticleClassDB $article;
 
     public function __construct(){
-        self::$buyOrder++;
+        $this->db=new DB();
+        $this->article = new ArticleClassDB();
         $this->date=date("D M d, Y G:i");
     }
 
     private function updateData($cart){
-        $_SESSION["list"]->updateContent($cart);
+        $this->setStock($cart);
         unset($_SESSION["cart"]);
         $_SESSION["cart"]=CartClass::getInstance();
     }
@@ -33,30 +33,15 @@ class ReciptClass{
         readfile($file);
     }
 
-    /**
-     * @return int
-     */
-    public static function getBuyOrder(): int
-    {
-        return self::$buyOrder;
+    public function getRecipt(){
+        
     }
 
-    /**
-     * @return string
-     */
-    public function getDate(): string
-    {
-        return $this->date;
+    private function setStock($cart){
+        foreach($cart as $key=>$value){
+            $this->article->setStock($value,$key);
+        }
     }
-
-    /**
-     * @return float|int
-     */
-    public function getFinalprice(): float|int
-    {
-        return $this->finalprice;
-    }
-
 
     public function createTicket($cart){
         $this->finalprice=$_SESSION["cart"]->getTotalValue();
