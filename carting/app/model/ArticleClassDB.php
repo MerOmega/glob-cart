@@ -31,7 +31,6 @@ class ArticleClassDB{
     public function setStock($newStock,$idItem)
     {
         $object=$this->getSingleArticle($idItem);
-        var_dump($object);
         $this->db->query("UPDATE articles SET stock=".($object->stock-$newStock)." WHERE idarticles=$idItem");
         $this->db->execute();
     }

@@ -9,7 +9,7 @@ class ReciptClass{
     public function __construct(){
         $this->db=new DB();
         $this->article = new ArticleClassDB();
-        $this->date=date("D M d, Y G:i");
+        $this->date=date("D M d, Y");
     }
 
     private function updateData($cart){
@@ -33,8 +33,15 @@ class ReciptClass{
         readfile($file);
     }
 
-    public function getRecipt(){
-        
+    public function setOrder(){
+        $sql="INSERT INTO `order` (`datebuy`,`total`) VALUES (\"$this->date\",\"$this->finalprice\")";
+        $this->db->query($sql);
+        $this->db->execute();
+    }
+
+    public function getOrder($id){
+        $this->db->query("SELECT * FROM articles WHERE idarticles=$id");
+        return $this->db->singleRecord();
     }
 
     private function setStock($cart){
@@ -43,9 +50,16 @@ class ReciptClass{
         }
     }
 
+    public function getLastOrder(){
+        $this->db->query("SELECT * FROM order WHERE MAX(idorder)");
+        return $this->db->singleRecord();
+    }
+
+
     public function createTicket($cart){
         $this->finalprice=$_SESSION["cart"]->getTotalValue();
         $this->updateData($cart);
+        $this->setOrder();
     }
 
 
