@@ -34,9 +34,12 @@ class ReciptClass{
     }
 
     public function setOrder(){
-        $sql="INSERT INTO `order` (`datebuy`,`total`) VALUES (\"$this->date\",\"$this->finalprice\")";
-        $this->db->query($sql);
-        $this->db->execute();
+        if($this->finalprice!=0){
+            $sql="INSERT INTO `order` (`datebuy`,`total`) VALUES (\"$this->date\",\"$this->finalprice\")";
+            $this->db->query($sql);
+            $this->db->execute();
+        }
+        
     }
 
     public function getOrder($id){
@@ -45,13 +48,15 @@ class ReciptClass{
     }
 
     private function setStock($cart){
-        foreach($cart as $key=>$value){
-            $this->article->setStock($value,$key);
+        if($this->finalprice!=0){
+            foreach($cart as $key=>$value){
+                $this->article->setStock($value,$key);
+            }
         }
     }
 
     public function getLastOrder(){
-        $this->db->query("SELECT * FROM order WHERE MAX(idorder)");
+        $this->db->query("SELECT * FROM `order` ORDER BY idorder DESC LIMIT 1");
         return $this->db->singleRecord();
     }
 

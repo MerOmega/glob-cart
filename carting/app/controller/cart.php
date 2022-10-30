@@ -16,8 +16,12 @@ class cart extends Controller{
 
     public function addItem($params){
         $postAmount= filter_var($_POST["amount"],FILTER_SANITIZE_NUMBER_INT)??null;
-        if(isset($postAmount)){
+        $existsStock=$postAmount<$this->article->getSingleArticle($params)->stock;
+        if(isset($postAmount) && $existsStock){
             $_SESSION["cart"]->setConjArticle(filter_var($params,FILTER_SANITIZE_NUMBER_INT),$postAmount,$this->article->getArticles());
+            header("HTTP/1.1 200 OK");
+        }else{
+            header("HTTP/1.1 400 BAD REQUEST");
         }
         header("Location:".INDEXED_RUTE);
         die();
