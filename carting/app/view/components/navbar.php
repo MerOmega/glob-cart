@@ -7,7 +7,7 @@
             <a class="nav-link" aria-current="page" href="<?php echo INDEXED_RUTE ?>">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="cart">Carrito <?php echo($_SESSION["cart"]->getTotalItems()) ?></a>
+            <a class="nav-link" href="<?php echo(INITIAL_RUTE)?>/cart">Carrito <?php echo($_SESSION["cart"]->getTotalItems()) ?></a>
           </li>
           <li>
             <p class="nav-link" >A pagar:$ <?php echo($_SESSION["cart"]->getTotalValue()) ?></p>

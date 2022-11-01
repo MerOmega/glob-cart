@@ -2,7 +2,7 @@
 
 class ArticleClassDB{
     
-
+    private int $pageRow=5;
     private object $db;
 
     public function __construct(){
@@ -14,6 +14,17 @@ class ArticleClassDB{
     {
         $this->db->query("SELECT * FROM articles");
         return $this->db->records();
+    }
+    public function getArticlesPage($page)
+    {
+        $limitSyntax=($page-1)*$this->pageRow;
+        $this->db->query("SELECT * FROM articles LIMIT $limitSyntax,$this->pageRow");
+        return $this->db->records();
+    }
+
+    public function getTotalArticles(){
+        $this->db->query("SELECT * FROM articles");
+        return $this->db->rowCount();
     }
 
     public function getSingleArticle($id)

@@ -23,7 +23,7 @@ class cart extends Controller{
         }else{
             header("HTTP/1.1 400 BAD REQUEST");
         }
-        header("Location:".INDEXED_RUTE);
+        header("Location:".INDEXED_RUTE."/".$_POST["page"]);
         die();
     }
 

@@ -48,7 +48,7 @@ require(RUTA_APP."/view/components/header.php");
                     <div class="col-md-2 d-flex justify-content-center">
                         <div>
                             <p class="small text-muted mb-4 pb-2">Eliminar item</p>
-                            <a href="<?php echo INITIAL_RUTE?>cart/deleteItem/<?php echo $key ?>" type="button" class="btn btn-light"><span class="bi bi-trash"></span></a>
+                            <a href="<?php echo INITIAL_RUTE?>/cart/deleteItem/<?php echo $key ?>" type="button" class="btn btn-light"><span class="bi bi-trash"></span></a>
                         </div>
                     </div>
                 </div>
@@ -74,7 +74,7 @@ require(RUTA_APP."/view/components/header.php");
         </div>
 
         <div class="d-flex justify-content-end">
-          <a href="cart/removeCart" type="buttop" class="btn btn-danger btn-lg me-2">Delete all in Shopping Cart</a>
+          <a href="<?php echo INITIAL_RUTE?>/cart/removeCart" type="buttop" class="btn btn-danger btn-lg me-2">Delete all in Shopping Cart</a>
           <a href="<?php echo INDEXED_RUTE ?>" type="button" class="btn btn-light btn-lg me-2">Continue shopping</a>
           <?php if(count($cartElements-> getConjArticle())!=0){ ?>
           <form action="recipt/index" method="post">
