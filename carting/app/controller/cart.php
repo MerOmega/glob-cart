@@ -16,23 +16,22 @@ class cart extends Controller{
         
     }
 
-    public function addItem($params){
+    public function addItem($idItem){
         $postAmount= filter_var($_POST["amount"],FILTER_SANITIZE_NUMBER_INT)??null;
-        $existsStock=$postAmount<$this->article->getSingleArticle($params)->stock;
+        $existsStock=$postAmount<=$this->article->getSingleArticle($idItem)->stock;
         if(isset($postAmount) && $existsStock){
-            $_SESSION["cart"]->setConjArticle(filter_var($params,FILTER_SANITIZE_NUMBER_INT),$postAmount,$this->article->getArticles());
-            header("HTTP/1.1 200 OK");
-            $_SESSION["conversation"]->saveAction("Item saved Item ID:$params Amount:$postAmount");
+            $_SESSION["cart"]->setConjArticle(filter_var($idItem,FILTER_SANITIZE_NUMBER_INT),$postAmount,$this->article->getArticles());
+            $_SESSION["conversation"]->saveAction("Item saved Item ID:$idItem Amount:$postAmount");
         }else{
-            $_SESSION["conversation"]->saveAction("Trying to buy Item out of stock ID:$params, buy more than its possible or forced the URL to a non-existent item ");
+            $_SESSION["conversation"]->saveAction("Trying to buy Item out of stock ID:$idItem, buy more than its possible or forced the URL to a non-existent item ");
         }
         header("Location:".INDEXED_RUTE."/".$_POST["page"]);
         die();
     }
 
-    public function deleteItem($params){
-        $_SESSION["conversation"]->saveAction("User deleted the item ID: $params from shopping cart");
-        $this->cart->deleteItemDB($params,$this->article->getArticles($params));
+    public function deleteItem($idItem){
+        $_SESSION["conversation"]->saveAction("User deleted the item ID: $idItem from shopping cart");
+        $this->cart->deleteItemDB($idItem,$this->article->getArticles($idItem));
         $this->index();
     }
 
@@ -41,5 +40,11 @@ class cart extends Controller{
         $_SESSION["conversation"]->saveAction("User delete all items in shopping cart");
         header("Location:".INDEXED_RUTE);
         die();
+    }
+
+    private function validateStock($idItem,$amount){
+        $isLimit=false;
+        $stock = $this->cart->getStockItem($idItem);
+        $amount-$stock<1?$isLimit=true:$isLimit=false;
     }
 }

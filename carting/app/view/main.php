@@ -25,12 +25,16 @@
                         <h5 class="card-title">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam quidem eaque ut eveniet aut quis rerum. Asperiores accusamus harum ducimus velit odit ut. Saepe, iste optio laudantium sed aliquam sequi.</h5>
                         <p>Solo <?php echo($key->stock) ?> en stock!</p>
                         <form action="<?php echo INITIAL_RUTE?>/cart/addItem/<?php echo $key->idarticles;?>" method="post" autocomplete="off">
-                        <!-- Envia como POST al controlador la cantidad que quiere guardar en el carro -->
-                        <div class="text-center my-4">
-                            <label for="amount">Cantidad:</label> <input type="number" name="amount" required value="1">
-                            <input type="hidden" name="page" value="<?php echo $url[3]?>">
-                            <button type="submit" class="btn btn-warning"> Buy now! </button>
-                        </div>
+                            <!-- Envia como POST al controlador la cantidad que quiere guardar en el carro -->
+                            <div class="text-center my-4">
+                                <?php if($key->stock>1){ ?>
+                                    <label for="amount">Cantidad:</label> <input type="number" name="amount" required value="1">
+                                <?php }else{ ?>
+                                        <input type="hidden" name="amount" required value="1">
+                                    <?php } ?>
+                                <input type="hidden" name="page" value="<?php echo $url[3]?>">
+                                <button type="submit" class="btn btn-warning"> Buy now! </button>
+                            </div>
                         </form>  
                     </div>
                 </div>
@@ -56,7 +60,7 @@
             <?php }?>
             <li class="page-item"><p class="page-link disabled"><?php echo($url[3]) ?></p></li>
             <?php
-                if(ceil($data[1]/5)>$url[3]){
+                if(ceil($data[1]/LIMIT_ITEM_PER_PAGE)>$url[3]){
             ?>
             <li class="page-item"><a class="page-link" href="<?php echo(INDEXED_RUTE."/".$url[3]+1) ?>"><?php echo($url[3]+1) ?></a></li>
             <li class="page-item">

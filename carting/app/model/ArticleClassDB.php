@@ -2,7 +2,7 @@
 
 class ArticleClassDB{
     
-    private int $pageRow=5;
+    private int $pageRow=LIMIT_ITEM_PER_PAGE;
     private object $db;
 
     public function __construct(){

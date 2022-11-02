@@ -72,6 +72,9 @@ class CartClass{
         return $this->totalItems;
     }
 
+    public function getStockItem($id){
+        return $this->conjArticle[$id];
+    }
 
 }
 

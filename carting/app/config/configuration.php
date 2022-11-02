@@ -16,3 +16,6 @@ define("INITIAL_RUTE","/carting");
 define("RUTA_URL","_URL_");
 
 define("NAMESITE","NAME");
+
+//LIMIT PAGE
+define("LIMIT_ITEM_PER_PAGE",5);
