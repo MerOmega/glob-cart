@@ -5,7 +5,7 @@
         private $pass=DB_PASS;
         private $dbName=DB_NAME;
         //database handler
-        private PDOStatement $stmt;
+        private static PDOStatement $stmt;
         private $error;
         //https://github.com/krakjoe/pthreads/issues/120 Using PDO with Static avoid Serialization
         public static $pdo;
@@ -26,7 +26,7 @@
         //https://www.php.net/manual/es/pdo.prepare.php
         public function query($sql)
         {
-            $this->stmt=self::$pdo->prepare($sql);
+            self::$stmt=self::$pdo->prepare($sql);
         }
 
         //https://www.php.net/manual/en/pdostatement.bindparam.php
@@ -45,23 +45,23 @@
 
         public function execute()
         {
-            return $this->stmt->execute();
+            return self::$stmt->execute();
         }
 
         public function records()
         {
             $this->execute();
-            return $this->stmt->fetchAll(PDO::FETCH_OBJ);
+            return self::$stmt->fetchAll(PDO::FETCH_OBJ);
         }
         public function singleRecord()
         {
             $this->execute();
-            return $this->stmt->fetch(PDO::FETCH_OBJ);
+            return self::$stmt->fetch(PDO::FETCH_OBJ);
         }
 
         public function rowCount()
         {
             $this->execute();
-            return $this->stmt->rowCount();
+            return self::$stmt->rowCount();
         }
     }

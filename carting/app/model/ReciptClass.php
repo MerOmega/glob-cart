@@ -38,8 +38,8 @@ class ReciptClass{
             $sql="INSERT INTO `order` (`datebuy`,`total`) VALUES (\"$this->date\",\"$this->finalprice\")";
             $this->db->query($sql);
             $this->db->execute();
+            $_SESSION["conversation"]->persistActions();
         }
-        
     }
 
     public function getOrder($id){

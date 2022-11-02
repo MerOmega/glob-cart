@@ -18,5 +18,7 @@ require_once("config/configuration.php");
  if(!isset($_SESSION["cart"])){
    $_SESSION["cart"]=CartClass::getInstance();
  }
-
+ if(!isset($_SESSION["conversation"])){
+    $_SESSION["conversation"]=ConversationClass::getInstance();
+ }
 ?>

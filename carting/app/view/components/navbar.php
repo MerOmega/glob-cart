@@ -12,6 +12,9 @@
           <li>
             <p class="nav-link" >A pagar:$ <?php echo($_SESSION["cart"]->getTotalValue()) ?></p>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?php echo(INITIAL_RUTE)?>/conversation">Conversation</a>
+          </li>
         </ul>
       </div>
     </div>
