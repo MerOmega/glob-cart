@@ -73,7 +73,7 @@ class CartClass{
     }
 
     public function getStockItem($id){
-        return $this->conjArticle[$id];
+        return $_SESSION["cart"]->conjArticle[$id];
     }
 
 }

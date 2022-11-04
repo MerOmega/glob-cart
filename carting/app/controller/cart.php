@@ -9,17 +9,18 @@ class cart extends Controller{
     }
 
 
-    public function index()
+    public function index():void
     {
         $_SESSION["conversation"]->saveAction("user is in the shopping cart view");
         $this->view("cart",[$this->cart->allItemsDB(),$this->article->getArticles()]);
         
     }
 
-    public function addItem($idItem){
+    public function addItem(int $idItem):void{
         $postAmount= filter_var($_POST["amount"],FILTER_SANITIZE_NUMBER_INT)??null;
-        $existsStock=$postAmount<=$this->article->getSingleArticle($idItem)->stock;
-        if(isset($postAmount) && $existsStock){
+        $exists=$this->exists($postAmount,$idItem);
+        // $existsStock=($postAmount<=$this->article->getSingleArticle($idItem)->stock);
+        if(isset($postAmount) && $exists){
             $_SESSION["cart"]->setConjArticle(filter_var($idItem,FILTER_SANITIZE_NUMBER_INT),$postAmount,$this->article->getArticles());
             $_SESSION["conversation"]->saveAction("Item saved Item ID:$idItem Amount:$postAmount");
         }else{
@@ -29,22 +30,32 @@ class cart extends Controller{
         die();
     }
 
-    public function deleteItem($idItem){
+    public function deleteItem(int $idItem):void{
+        $idItem=filter_var($idItem,FILTER_SANITIZE_NUMBER_INT);
         $_SESSION["conversation"]->saveAction("User deleted the item ID: $idItem from shopping cart");
         $this->cart->deleteItemDB($idItem,$this->article->getArticles($idItem));
         $this->index();
     }
 
-    public function removeCart(){
+    public function removeCart():void{
         unset($_SESSION["cart"]);
         $_SESSION["conversation"]->saveAction("User delete all items in shopping cart");
         header("Location:".INDEXED_RUTE);
         die();
     }
 
-    private function validateStock($idItem,$amount){
-        $isLimit=false;
-        $stock = $this->cart->getStockItem($idItem);
-        $amount-$stock<1?$isLimit=true:$isLimit=false;
+    private function exists($postAmount,$idItem){
+        $bool=false;
+        $limit=$this->article->getSingleArticle($idItem)->stock;
+        $stockCart=$this->cart->getStockItem($idItem);
+        if($postAmount<=$this->article->getSingleArticle($idItem)->stock ){
+            if(($stockCart+$postAmount) - $limit <= 0){
+                $bool=true;
+             }   
+        }else{
+            $_SESSION["conversation"]->saveAction("Trying to buy Item out of stock ID:$idItem, buy more than its possible");
+        }
+        return $bool;
     }
+    
 }

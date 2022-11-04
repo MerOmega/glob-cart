@@ -14,7 +14,11 @@
  <?php
         
         foreach ($data[0] as $key){
-
+                $temporalStock=0;
+                if(array_key_exists($key->idarticles,$_SESSION["cart"]->getConjArticle())){
+                    $temporalStock=$_SESSION["cart"]->getStockItem($key->idarticles);
+                }
+                $stock=$key->stock - $temporalStock;
             ?>
             <div class="col"> <div class="card h-100 shadow-sm">
                     <div class="card-body" id="item-<?php echo $key->idarticles; ?>">
@@ -23,19 +27,21 @@
                             <span class="float-end price-hp">PRECIO: $<?php echo $key->price;?></span>
                         </div>
                         <h5 class="card-title">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam quidem eaque ut eveniet aut quis rerum. Asperiores accusamus harum ducimus velit odit ut. Saepe, iste optio laudantium sed aliquam sequi.</h5>
-                        <p>Solo <?php echo($key->stock) ?> en stock!</p>
-                        <form action="<?php echo INITIAL_RUTE?>/cart/addItem/<?php echo $key->idarticles;?>" method="post" autocomplete="off">
-                            <!-- Envia como POST al controlador la cantidad que quiere guardar en el carro -->
-                            <div class="text-center my-4">
-                                <?php if($key->stock>1){ ?>
-                                    <label for="amount">Cantidad:</label> <input type="number" name="amount" required value="1">
-                                <?php }else{ ?>
-                                        <input type="hidden" name="amount" required value="1">
-                                    <?php } ?>
-                                <input type="hidden" name="page" value="<?php echo $url[3]?>">
-                                <button type="submit" class="btn btn-warning"> Buy now! </button>
-                            </div>
-                        </form>  
+                        <p class="stock" id="stock-<?php echo($key->idarticles); ?>">Solo <?php echo($key->stock - $temporalStock) ?> en stock!</p>
+                        <?php if($stock>0){ ?>    
+                            <form action="<?php echo INITIAL_RUTE?>/cart/addItem/<?php echo $key->idarticles;?>" method="post" autocomplete="off">
+                                <!-- Envia como POST al controlador la cantidad que quiere guardar en el carro -->
+                                <div class="text-center my-4">
+                                    <?php if($key->stock>1){ ?>
+                                        <label for="amount">Cantidad:</label> <input type="number" name="amount" required value="1" min="1" max="<?php echo($key->stock) ?>" class="input" id="input-<?php echo($key->idarticles) ?>">
+                                    <?php }else{ ?>
+                                            <input type="hidden" name="amount" required value="1">
+                                        <?php } ?>
+                                    <input type="hidden" name="page" value="<?php echo $url[3]?>">
+                                    <button type="submit" class="btn btn-warning"> Buy now! </button>
+                                </div>
+                            </form>
+                        <?php } ?>  
                     </div>
                 </div>
             </div>
