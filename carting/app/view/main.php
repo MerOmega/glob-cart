@@ -2,6 +2,7 @@
  require(RUTA_APP."/view/components/header.php");
 ?>
 <?php 
+    //Obtengo la pagina actual
     $url=rtrim($_SERVER['REQUEST_URI'],"/");
     $url=filter_var($url,FILTER_SANITIZE_URL);
     $url=explode("/",$url);
@@ -15,10 +16,12 @@
         
         foreach ($data[0] as $key){
                 $temporalStock=0;
+                //Si existe el item en el carro lo uso para sacar su diferencia mas tarde
                 if(array_key_exists($key->idarticles,$_SESSION["cart"]->getConjArticle())){
                     $temporalStock=$_SESSION["cart"]->getStockItem($key->idarticles);
                 }
-                $stock=$key->stock - $temporalStock;
+                //Diferencia entre Stock en DB y El stock que hay en el carrito
+                $diferencialStock=$key->stock - $temporalStock;
             ?>
             <div class="col"> <div class="card h-100 shadow-sm">
                     <div class="card-body" id="item-<?php echo $key->idarticles; ?>">
@@ -28,12 +31,13 @@
                         </div>
                         <h5 class="card-title">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam quidem eaque ut eveniet aut quis rerum. Asperiores accusamus harum ducimus velit odit ut. Saepe, iste optio laudantium sed aliquam sequi.</h5>
                         <p class="stock" id="stock-<?php echo($key->idarticles); ?>">Solo <?php echo($key->stock - $temporalStock) ?> en stock!</p>
-                        <?php if($stock>0){ ?>    
+                        <?php if($diferencialStock>0){ ?>    
                             <form action="<?php echo INITIAL_RUTE?>/cart/addItem/<?php echo $key->idarticles;?>" method="post" autocomplete="off">
                                 <!-- Envia como POST al controlador la cantidad que quiere guardar en el carro -->
                                 <div class="text-center my-4">
-                                    <?php if($key->stock>1){ ?>
-                                        <label for="amount">Cantidad:</label> <input type="number" name="amount" required value="1" min="1" max="<?php echo($key->stock) ?>" class="input" id="input-<?php echo($key->idarticles) ?>">
+                                    <?php if($diferencialStock>1){ ?>
+                                        <label for="amount">Cantidad:</label> <input type="number" name="amount" required value="1" min="1" 
+                                        max="<?php echo($diferencialStock) ?>" class="input" id="input-<?php echo($key->idarticles) ?>">
                                     <?php }else{ ?>
                                             <input type="hidden" name="amount" required value="1">
                                         <?php } ?>
@@ -57,6 +61,7 @@
         <ul class="pagination">
             <li class="page-item">
             <?php if($url[3]>1){ ?>
+                    <!-- Voy a mostrar la pagina anterior en el momento que sea mayor a 1 -->
                     <a class="page-link" href="<?php echo(INDEXED_RUTE."/".$url[3]-1)?>" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                         <span class="sr-only">Previous</span>
@@ -64,10 +69,13 @@
                     </li> 
                     <li class="page-item"><a class="page-link" href="<?php echo(INDEXED_RUTE."/".$url[3]==1?1:$url[3]-1) ?>"><?php echo($url[3]==1?1:$url[3]-1); ?></a></li>
             <?php }?>
+            <!-- Pagina actual -->
             <li class="page-item"><p class="page-link disabled"><?php echo($url[3]) ?></p></li>
+            <!-- Fin pagina actual -->
+            <!-- Muestro la siguiente pagina solo si no llegue al final -->
             <?php
                 if(ceil($data[1]/LIMIT_ITEM_PER_PAGE)>$url[3]){
-            ?>
+            ?>  
             <li class="page-item"><a class="page-link" href="<?php echo(INDEXED_RUTE."/".$url[3]+1) ?>"><?php echo($url[3]+1) ?></a></li>
             <li class="page-item">
             <a class="page-link" href="<?php echo(INDEXED_RUTE."/".$url[3]+1)?>" aria-label="Next">

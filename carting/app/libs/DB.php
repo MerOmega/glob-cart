@@ -20,7 +20,7 @@
                 self::$pdo->exec("set names utf8");
             }catch (PDOException $e){
                 $this->error = $e->getMessage();
-                echo($this->error." Y algo mas");
+                echo($this->error);
             }
         }
         //https://www.php.net/manual/es/pdo.prepare.php
