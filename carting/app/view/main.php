@@ -30,7 +30,7 @@
                             <span class="float-end price-hp">PRECIO: $<?php echo $key->price;?></span>
                         </div>
                         <h5 class="card-title">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam quidem eaque ut eveniet aut quis rerum. Asperiores accusamus harum ducimus velit odit ut. Saepe, iste optio laudantium sed aliquam sequi.</h5>
-                        <p class="stock" id="stock-<?php echo($key->idarticles); ?>">Solo <?php echo($key->stock - $temporalStock) ?> en stock!</p>
+                        <p class="stock" id="stock-<?php echo($key->idarticles); ?>">Solo <?php echo($diferencialStock) ?> en stock!</p>
                         <?php if($diferencialStock>0){ ?>    
                             <form action="<?php echo INITIAL_RUTE?>/cart/addItem/<?php echo $key->idarticles;?>" method="post" autocomplete="off">
                                 <!-- Envia como POST al controlador la cantidad que quiere guardar en el carro -->

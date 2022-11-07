@@ -18,21 +18,6 @@ class ReciptClass{
         $_SESSION["cart"]=CartClass::getInstance();
     }
 
-    private  function generateTxt($cart){
-        $file = "test.txt";
-        $txt = fopen($file, "w") or die("Unable to open file!");
-        fwrite($txt, "lorem ipsum");
-        fclose($txt);
-        header('Content-Description: File Transfer');
-        header('Content-Disposition: attachment; filename=' . basename($file));
-        header('Expires: 0');
-        header('Cache-Control: must-revalidate');
-        header('Pragma: public');
-        header('Content-Length: ' . filesize($file));
-        header("Content-Type: text/plain");
-        readfile($file);
-    }
-
     public function setOrder(){
         if($this->finalprice!=0){
             $sql="INSERT INTO `order` (`datebuy`,`total`) VALUES (\"$this->date\",\"$this->finalprice\")";
@@ -51,7 +36,12 @@ class ReciptClass{
     private function setStock($cart){
         if($this->finalprice!=0){
             foreach($cart as $key=>$value){
-                $this->article->setStock($value,$key);
+                //Doble chequeo que hayan cantidades suficientes para la compra
+                // if($this->article->getSingleArticle($key)->stock - $value >= 0){
+                    $this->article->setStock($value,$key);
+                // }else{
+                //     $this->finalprice-=$this->article->getSingleArticle($key)->price*$value;
+                // }
             }
         }
     }

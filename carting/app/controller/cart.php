@@ -34,7 +34,8 @@ class cart extends Controller{
         $idItem=filter_var($idItem,FILTER_SANITIZE_NUMBER_INT);
         $_SESSION["conversation"]->saveAction("User deleted the item ID: $idItem from shopping cart");
         $this->cart->deleteItemDB($idItem,$this->article->getArticles($idItem));
-        $this->index();
+        header("Location:".INITIAL_RUTE."/cart");
+        die();
     }
 
     public function removeCart():void{
